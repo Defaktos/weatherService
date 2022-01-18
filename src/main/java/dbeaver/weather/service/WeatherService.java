@@ -38,7 +38,7 @@ public class WeatherService {
         }
     }
 
-    private WeatherResponseDTO mapToDTO(Weather weather) { //нужен ли этот метод или сразу можем в getWeather возвращать новую дто?
+    private WeatherResponseDTO mapToDTO(Weather weather) { 
         return new WeatherResponseDTO(weather);
     }
 
