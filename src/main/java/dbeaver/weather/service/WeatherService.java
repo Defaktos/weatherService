@@ -2,17 +2,14 @@ package dbeaver.weather.service;
 
 import dbeaver.weather.controller.dto.WeatherResponseDTO;
 import dbeaver.weather.entity.Weather;
-import dbeaver.weather.exception.WeatherNotFoundException;
 import dbeaver.weather.repository.WeatherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -30,7 +27,6 @@ public class WeatherService {
 
     public WeatherResponseDTO getWeather() throws IOException {
         String currentDate = (String) Calendar.getInstance().getTime().toString();
-        //Optional<Weather> temperatureByDay = weatherRepository.getTemperatureByDay(currentDate);
         Optional<Weather> temperatureByDay = Optional.empty();
         if (!temperatureByDay.isPresent()) {
             Weather weather = new Weather(currentDate, parse());
@@ -48,8 +44,8 @@ public class WeatherService {
 
     private String parse() throws IOException {
         String html = getHtmlPage();
-        Pattern pattern = Pattern.compile("-?.(\\d+)\\b°"); //класс pattern - это само регулярное выражение  (-|\\+ - либо плюс, либо минус перед числом. ? - ноль или более символов до числа. \\d+ одно или более чисел)
-        Matcher matcher = pattern.matcher(html); //matcher использует наш pattern чтобы проводить операции над нашей строкой
+        Pattern pattern = Pattern.compile("-?.(\\d+)\\b°");
+        Matcher matcher = pattern.matcher(html);
         String text = null;
         while (matcher.find()) {
             text = matcher.group();
